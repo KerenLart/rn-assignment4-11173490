@@ -1,7 +1,13 @@
+import { useState } from 'react';
 import {View,Text, TextInput, Image, TouchableOpacity} from 'react-native';
 import { StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LoginScreen() {
+  const navigation= useNavigation()
+  const [name,setName] = useState('');
+  const [email,setEmail] =useState('');
+
   return (
     <View style={styles.container}>
         <Text style={{color:'#356899', fontSize:22, fontWeight:'600',marginBottom:10, marginTop:50}}>Jobizz</Text>
@@ -9,13 +15,18 @@ export default function LoginScreen() {
           <Text style={{fontWeight:'600', fontSize:24, marginBottom:10}}>Welcome Back 👋</Text>
           <Text style={{fontWeight:'400', fontSize:14, color:'#AFB0B6'}}>Let's log in. Apply to jobs!</Text>
         </View>
+
+
         <View style={{marginTop:40}}> 
-          <TextInput placeholder='Name' style={styles.textinput} ></TextInput>
-          <TextInput placeholder='Email' style={styles.textinput} inputMode='email'></TextInput>
-          <TouchableOpacity style={{backgroundColor:'#356899',width:327, height:56,alignItems: 'center', marginTop:25,borderRadius:5, justifyContent: 'center' }}>
+          <TextInput placeholder='Name' style={styles.textinput}   onChangeText={text => setName(text)}></TextInput>
+          <TextInput placeholder='Email' style={styles.textinput} inputMode='email' onChangeText={text => setEmail(text)}></TextInput>
+
+          <TouchableOpacity onPress={() => navigation.navigate('HomeScreen', { name, email })} style={{backgroundColor:'#356899',width:327, height:56,alignItems: 'center', marginTop:25,borderRadius:5, justifyContent: 'center' }}>
             <Text style={{color:'#fff'}}>Log in </Text>
           </TouchableOpacity>
         </View>
+
+
         <View style={{ flexDirection:'row', marginTop: 30, width:327,marginBottom:20}}>
           <View style={{backgroundColor:'#AFB0B6',width:100,height:1,marginTop:10,marginRight:10}}>
           </View>
@@ -23,6 +34,7 @@ export default function LoginScreen() {
           <View style={{backgroundColor:'#AFB0B6',width:100,height:1, marginTop:10,marginLeft:10 }}>
         </View>
         </View>
+
         <View style={{flexDirection:'row', justifyContent:'space-around', marginBottom:20, width: 300, marginLeft:10   }}>
           <View style={styles.logocontainer}>
           <Image source={require('../assets/apple-logo.png')}style={styles.logo}/>
